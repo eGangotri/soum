@@ -5,10 +5,15 @@ import {schema} from "./Schemas/index.js";
 import cors from "cors";
 import {router} from './router.js';
 
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+import {swaggerSpec} from './swagger.js';
+
 const PORT = 6969;
 
 const app = express();
 
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(cors());
 app.use(express.json());
 

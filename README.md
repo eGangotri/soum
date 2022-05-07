@@ -2,8 +2,12 @@
 yarn install
 yarn run start
 
+## swagger
+Based on https://dev.to/kabartolo/how-to-document-an-express-api-with-swagger-ui-and-jsdoc-50do
+http://localhost:6969/docs/
 
 
+### Project Original Description
 Please refer to the below state diagram of the product Entity.
 
 Product Entity
