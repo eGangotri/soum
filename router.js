@@ -6,7 +6,18 @@ router.get('/', function (req, res) {
     res.send('Home Page');
   })
 
-  //localhost:6969/getCategory?parent_id=10
+
+ /**
+ * @swagger
+ * /getCategory:
+ *   get:
+ *     summary: getCategory
+ *     description: Retrieve a list of categgories restricted by parent_id 
+ *                  if params are passed otherwise all. Example localhost:6969/getCategory?parent_id=10
+ *     
+
+ */ 
+  
 router.get('/getCategory', function (req, res) {
   const parentId = req.query.parent_id
   console.log(`parentId ${parentId}`);

@@ -5,15 +5,18 @@ import {schema} from "./Schemas/index.js";
 import cors from "cors";
 import {router} from './router.js';
 
-import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import {swaggerSpec} from './swagger.js';
+import YAML from 'yamljs';
+
 
 const PORT = 6969;
-
 const app = express();
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+
+const swaggerDocument = YAML.load('./swagger.yaml');
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.use(cors());
 app.use(express.json());
 
