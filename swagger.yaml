@@ -126,9 +126,14 @@ components:
         stateTo:
           type: string
           description: stateTo
+        productId:
+          type: integer
+          format: int64
+          description: productId
       required:
         - stateFrom
         - stateTo
+        - productId
 
 
 
