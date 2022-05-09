@@ -16,3 +16,13 @@ export const ProductType = new GraphQLObjectType({
   }),
 });
 
+export const UpdateProductType = new GraphQLObjectType({
+  name: "UpdateProduct",
+  fields: () => ({
+    stateFrom: { type: GraphQLString },
+    stateTo: { type: GraphQLString }
+  }),
+});
+
+
+

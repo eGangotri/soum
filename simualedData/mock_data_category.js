@@ -1,12 +1,12 @@
 export const mockCategory = [
-  { category_id: 1, parent_id: 604, category_name: "Framing (Steel)" },
+  { category_id: 1, parent_id: 11, category_name: "Framing (Steel)" },
   {
     category_id: 2,
-    parent_id: 729,
+    parent_id: 11,
     category_name: "Electrical and Fire Alarm",
   },
-  { category_id: 3, parent_id: 445, category_name: "Masonry" },
-  { category_id: 4, parent_id: 688, category_name: "Termite Control" },
+  { category_id: 3, parent_id: 11, category_name: "Masonry" },
+  { category_id: 4, parent_id: 11, category_name: "Termite Control" },
   { category_id: 5, parent_id: 696, category_name: "Plumbing & Medical Gas" },
   { category_id: 6, parent_id: 164, category_name: "Marlite Panels (FED)" },
   {
@@ -21,7 +21,7 @@ export const mockCategory = [
   { category_id: 12, parent_id: 721, category_name: "Fire Protection" },
   { category_id: 13, parent_id: 105, category_name: "Epoxy Flooring" },
   { category_id: 14, parent_id: 729, category_name: "Drilled Shafts" },
-  { category_id: 15, parent_id: 838, category_name: "Overhead Doors" },
+  { category_id: 15, parent_id: 11, category_name: "Overhead Doors" },
   {
     category_id: 16,
     parent_id: 479,

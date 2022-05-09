@@ -12,8 +12,9 @@ import { mockCategory } from "../simualedData/mock_data_category.js";
 import { mockProduct } from "../simualedData/mock_data_product.js";
 
 import { CategoryType } from "./TypeDefs/CategoryType.js";
-import { ProductType } from "./TypeDefs/ProductType.js";
+import { ProductType, UpdateProductType } from "./TypeDefs/ProductType.js";
 import { UserType } from "./TypeDefs/UserType.js";
+import _ from 'lodash';
 
 //a. REST API and a GraphQL API to GET category list. If the parent_id is given it should return only the child categories
 //b. REST API and a GraphQL API to get a list of products by state and transfer the state.
@@ -32,14 +33,28 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(CategoryType),
       args: { parent_id: { type: GraphQLInt } },
       resolve(parent, args) {
-        return mockCategory;
+        const parentId = args.parent_id;
+        console.log("JSON.stringify(args):",JSON.stringify(args));
+        if(parentId){
+          const filteredByParentId = _.filter(mockCategory, function(cat) { return cat.parent_id === args.parent_id; });
+           console.log(`filteredByParentId ${JSON.stringify(filteredByParentId)}`);
+          return filteredByParentId
+        }
+        else return mockCategory;
       },
     },
     getProduct: {
       type: new GraphQLList(ProductType),
       args: { state: { type: GraphQLString } },
       resolve(parent, args) {
-        return mockProduct;
+        const state = args.state;
+        console.log("JSON.stringify(args):",JSON.stringify(args));
+        if(state){
+          const filteredByState = _.filter(mockProduct, function(prod) { return prod.state === args.state; });
+           console.log(`filteredByState ${JSON.stringify(filteredByState)}`);
+          return filteredByState
+        }
+        else return mockProduct;
       },
     },
   },
@@ -48,13 +63,11 @@ const RootQuery = new GraphQLObjectType({
 const Mutation = new GraphQLObjectType({
   name: "Mutation",
   fields: {
-    createUser: {
-      type: UserType,
+    updateProductState: {
+      type: UpdateProductType,
       args: {
-        firstName: { type: GraphQLString },
-        lastName: { type: GraphQLString },
-        email: { type: GraphQLString },
-        password: { type: GraphQLString },
+        stateFrom: { type: GraphQLString },
+        stateTo: { type: GraphQLString },
       },
       resolve(parent, args) {
         userData.push({

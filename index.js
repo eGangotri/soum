@@ -4,15 +4,12 @@ import { graphqlHTTP } from "express-graphql";
 import {schema} from "./Schemas/index.js";
 import cors from "cors";
 import {router} from './router.js';
+import {PORT} from './consts.js';
 
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 
-
-const PORT = 6969;
 const app = express();
-
-
 
 const swaggerDocument = YAML.load('./swagger.yaml');
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
