@@ -28,7 +28,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Category"
+              $ref: "#/components/schemas/Category"
         "400":
           description: "Invalid status value"
   /getProduct:
@@ -49,7 +49,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Product"
+              $ref: "#/components/schemas/Product"
         "400":
           description: "Invalid status value"
                   
@@ -64,13 +64,14 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateProductState'
-        responses:
+      responses:
         "200":
           description: "successful operation"
-          content:
-            text/plain:
-              schema:
-                type: string
+          schema:
+              type: "object"
+              properties:
+                  status:
+                    type: "string"
         "400":
           description: "Invalid status value"
 components:

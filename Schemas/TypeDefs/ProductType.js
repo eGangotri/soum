@@ -3,7 +3,6 @@ const { GraphQLObjectType, GraphQLInt, GraphQLString } = graphql;
 
 //-	Product Name, Product Price, Images (One of this will be the main image) A product belongs to one category.
 
-
 export const ProductType = new GraphQLObjectType({
   name: "Product",
   fields: () => ({
