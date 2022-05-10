@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "standard",
+    "test": "jest",
     "start": "nodemon ./index.js"
   },
   "keywords": [],
