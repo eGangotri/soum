@@ -20,7 +20,9 @@ export const UpdateProductType = new GraphQLObjectType({
   fields: () => ({
     stateFrom: { type: GraphQLString },
     stateTo: { type: GraphQLString },
-    product_id: { type: GraphQLInt }
+    product_id: { type: GraphQLInt },
+    status: { type: GraphQLString },
+
   }),
 });
 

@@ -5,7 +5,11 @@ import _ from "lodash";
 export async function getCategoryFromGraphAPI(parentId) {
   const fitVariable = parentId ? `(parent_id: ${parentId})` : "";
   const jsonQuery = {
-    query: `{  getCategory${fitVariable} {category_id,parent_id,category_name  }}`,
+    query: `{  
+      getCategory${fitVariable} {
+        category_id,parent_id,category_name  
+      }
+    }`,
     variables: null,
   };
   const data = await fetchFromGraphQL(jsonQuery);
@@ -15,7 +19,11 @@ export async function getCategoryFromGraphAPI(parentId) {
 export async function getProductFromGraphAPI(state) {
   const fitVariable = state ? `(state: "${state}")` : "";
   const jsonQuery = {
-    query: `{   getProduct${fitVariable} { product_id,category_id,product_price,product_image,product_name,state  } }`,
+    query: `{   
+      getProduct${fitVariable} {
+         product_id,category_id,product_price,product_image,product_name,state  
+        } 
+      }`,
     variables: null,
   };
   const data = await fetchFromGraphQL(jsonQuery);
@@ -27,17 +35,21 @@ export async function updateProductStateFromGraphAPI(
   stateTo,
   productId
 ) {
+
+
+
   const fitVariable =
     `stateFrom: "${stateFrom}",stateTo: "${stateTo}",productId: ${productId}`;
-  const jsonQuery2 = {
+  const jsonQuery = {
     query:
-      `mutation {updateProductState(${fitVariable}) {  stateTo,stateFrom, productId}  }`,
+      `mutation {
+        updateProductState(${fitVariable}) {
+          status
+        }  
+      }`,
     variables: null,
   };
 
-  const jsonQuery = 
-    {"query":`mutation {updateProductState(${fitVariable}) {stateTo,stateFrom}  }`,"variables":null}
-  
   const data = await fetchFromGraphQL(jsonQuery);
   return data;
 }

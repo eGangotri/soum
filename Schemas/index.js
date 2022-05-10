@@ -66,8 +66,8 @@ const Mutation = new GraphQLObjectType({
       },
       resolve(parent, args) {
         const {stateFrom,stateTo,productId} = args;
-        console.log("JSON.stringify(args):",JSON.stringify(args));
         const success = updateProductState(stateFrom,stateTo,productId)
+        console.log("Mutation:updateProductState JSON.stringify(args):",JSON.stringify(args), `success ${success}`);
         return success;
       },
     },
