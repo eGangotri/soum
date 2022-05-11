@@ -2,10 +2,37 @@
 yarn install
 yarn run start
 
+
+
 ## swagger
 http://localhost:6969/docs/
 
-##graphql
+
+### For Get Category with ParentId Filter
+curl -X 'GET' \
+  'http://localhost:6969/getCategory?parent_id=11' \
+  -H 'accept: */*'
+
+### For Get Product with ParentId Filter
+
+curl -X 'GET' \
+  'http://localhost:6969/getProduct?state=Draft' \
+  -H 'accept: */*'
+
+
+### For Update Product with
+
+curl -X 'POST' \
+  'http://localhost:6969/updateProductState' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "stateFrom": "Returned",
+  "stateTo": "Draft",
+  "productId": 1
+}'
+
+## graphql
 http://localhost:6969/graphql
 
 ### For Get Category
@@ -40,6 +67,9 @@ mutation {
     status
   }  
 }
+
+## for testing
+yarn run jest
 
 ### Project Original Description
 Please refer to the below state diagram of the product Entity.
