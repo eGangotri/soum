@@ -2,11 +2,8 @@ import { States, StateFactory } from './ProductUtils.js';
 
 export class Product {
   constructor(_productWithState) {
-    this.states = [new DraftState(), new AvailableState(), new ReservedState()
-      , new DeletedState(), new ExpiredState(), new SoldState(),
-    new ReturnedState(), new DeletedDraftState(), new TerminatedState()];
     this.productWithState = _productWithState;
-    this.currentState = _productWithState.state ? StateFactory.getFactory(_productWithState.state) : this.states[0];
+    this.currentState = _productWithState.state ? StateFactory.getFactory(_productWithState.state) : new DraftState();
   }
 
   transition(stateTo) {

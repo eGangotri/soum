@@ -47,15 +47,15 @@ export function validateAndShareIndexOtherwiseErrMsg(stateFrom, stateTo, product
   return { valid, _status, index }
 }
 
-function transitionState(index, stateFrom, stateTo, productId) {
+export function transitionState(index, stateFrom, stateTo, productId) {
   let _status = '';
-
-  const transitionSucces = ProductFSM.transition(productId, stateFrom, stateTo)
+  
+  const transitionSucces = ProductFSM.transition(index, stateTo)
   if (transitionSucces) {
-    _status = `Success: Updating from ${stateFrom} to ${stateTo} for product with Id ${productId}`
+    _status = `Success: Updating from stateFrom:'${stateFrom}' to stateTo: '${stateTo}' for product with Id:(${productId})`
   }
   else {
-    _status = `Error: Attempting Change of stateFrom:${stateFrom} to stateTo: ${stateTo} is Invalid`;
+    _status = `Error: Attempting Change of stateFrom:'${stateFrom}' to stateTo: '${stateTo}' for product with Id:(${productId}) is Invalid`;
   }
   return _status;
 }

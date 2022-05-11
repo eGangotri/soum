@@ -1,5 +1,6 @@
-import { validateAndShareIndexOtherwiseErrMsg } from '../service/service.js';
+import { validateAndShareIndexOtherwiseErrMsg,transitionState,updateProductState } from '../service/service.js';
 import { ProductFSM } from '../states/ProductFSM';
+import { StateFactory } from '../states/ProductUtils.js';
 
 
 beforeEach(() => {
@@ -10,9 +11,15 @@ afterEach(() => {
   ProductFSM.destroy();
 });
 
-
-describe("Service Testing", () => {
-
+describe("Service Testing - validateAndShareIndexOtherwiseErrMsg", () => {
+  beforeEach(() => {
+    ProductFSM.init();
+  });
+  
+  afterEach(() => {
+    ProductFSM.destroy();
+  });
+  
   test('validateAndShareIndexOtherwiseErrMsg test invalid stateFrom', () => {
     const { valid, _status, index } = validateAndShareIndexOtherwiseErrMsg("nonExistentStateFrom", "Sold", 1);
     expect(valid).toBe(false);
@@ -44,3 +51,32 @@ describe("Service Testing", () => {
   });
 });
 
+
+
+describe("Service Testing - updateProductState", () => {
+  
+  test('updateProductState test valid stateFrom and in-transitionable stateTo', () => {
+    const _status = updateProductState("Returned", "Available", 1)
+    expect(_status.status).toBe("Error: stateFrom:Returned to stateTo: Available is not a valid transition state");
+  });
+
+});
+
+
+describe("Service Testing - transitionState", () => {
+
+  test('transitionState test valid stateFrom and in-transitionable stateTo', () => {
+    ProductFSM.productsFSMArray[0].state = "Returned"
+    ProductFSM.productsFSMArray[0].currentState = StateFactory.getFactory("Returned");
+    const _status = transitionState(0,"Returned", "Available", 1)
+    expect(_status).toBe("Error: Attempting Change of stateFrom:'Returned' to stateTo: 'Available' for product with Id:(1) is Invalid");
+  });
+  
+  test('transitionState test valid stateFrom and transitionable stateTo', () => {
+    ProductFSM.productsFSMArray[0].state = "Returned"
+    ProductFSM.productsFSMArray[0].currentState = StateFactory.getFactory("Returned");
+    const _status = transitionState(0, "Returned", "Draft", 1);
+    expect(_status).toBe("Success: Updating from stateFrom:'Returned' to stateTo: 'Draft' for product with Id:(1)");
+  });
+
+});
