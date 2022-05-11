@@ -8,6 +8,7 @@ import {PORT} from './consts.js';
 
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
+import { ProductFSM } from "./states/ProductFSM.js";
 
 const app = express();
 
@@ -35,5 +36,6 @@ b. REST API and a GraphQL API to get a list of products by state and transfer th
 state.
  */
 app.listen(PORT, () => {
+  ProductFSM.init()
   console.log(`Server running ${PORT}`);
 });

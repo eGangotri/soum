@@ -8,7 +8,8 @@ const {
 } = graphql;
 
 import { mockCategory } from "../simualedData/mock_data_category.js";
-import { mockProduct } from "../simualedData/mock_data_product.js";
+import { ProductFSM } from '../states/ProductFSM.js';
+
 
 import { CategoryType } from "./TypeDefs/CategoryType.js";
 import { ProductType, UpdateProductType } from "./TypeDefs/ProductType.js";
@@ -42,12 +43,17 @@ const RootQuery = new GraphQLObjectType({
       resolve(parent, args) {
         const state = args.state;
         console.log("JSON.stringify(args):",JSON.stringify(args));
+        const productsWithStateList = ProductFSM.productsFSMArray.map(a => a.productWithState);
         if(state){
-          const filteredByState = _.filter(mockProduct, function(prod) { return prod.state === args.state; });
-           console.log(`filteredByState ${JSON.stringify(filteredByState)}`);
+          const filteredByState = _.filter(productsWithStateList, function(prod) { return prod.state === args.state; });
+          // console.log(`filteredByState ${JSON.stringify(filteredByState)}`);
           return filteredByState
         }
-        else return mockProduct;
+        else {
+          console.log(`filteredByParentId ${JSON.stringify(productsWithStateList[0])}`);
+
+          return productsWithStateList;
+        }
       },
     },
   },
@@ -67,7 +73,7 @@ const Mutation = new GraphQLObjectType({
       resolve(parent, args) {
         const {stateFrom,stateTo,productId} = args;
         const success = updateProductState(stateFrom,stateTo,productId)
-        console.log("Mutation:updateProductState JSON.stringify(args):",JSON.stringify(args), `success ${success}`);
+        console.log("Mutation:updateProductState JSON.stringify(args):",JSON.stringify(args), `success ${JSON.stringify(success)}`);
         return success;
       },
     },
