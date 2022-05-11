@@ -28,10 +28,8 @@ const RootQuery = new GraphQLObjectType({
       args: { parent_id: { type: GraphQLInt } },
       resolve(parent, args) {
         const parentId = args.parent_id;
-        console.log("JSON.stringify(args):",JSON.stringify(args));
         if(parentId){
           const filteredByParentId = _.filter(mockCategory, function(cat) { return cat.parent_id === args.parent_id; });
-           console.log(`filteredByParentId ${JSON.stringify(filteredByParentId)}`);
           return filteredByParentId
         }
         else return mockCategory;
@@ -42,16 +40,12 @@ const RootQuery = new GraphQLObjectType({
       args: { state: { type: GraphQLString } },
       resolve(parent, args) {
         const state = args.state;
-        console.log("JSON.stringify(args):",JSON.stringify(args));
         const productsWithStateList = ProductFSM.productsFSMArray.map(a => a.productWithState);
         if(state){
           const filteredByState = _.filter(productsWithStateList, function(prod) { return prod.state === args.state; });
-          // console.log(`filteredByState ${JSON.stringify(filteredByState)}`);
           return filteredByState
         }
         else {
-          console.log(`filteredByParentId ${JSON.stringify(productsWithStateList[0])}`);
-
           return productsWithStateList;
         }
       },

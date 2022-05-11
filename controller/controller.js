@@ -64,6 +64,5 @@ async function fetchFromGraphQL(jsonObj) {
     body: JSON.stringify(jsonObj),
   });
   const data = await response.json();
-  //console.log("data returned:", data);
   return data;
 }

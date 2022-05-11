@@ -12,7 +12,7 @@ export function updateProductState(stateFrom, stateTo, productId) {
   }
 }
 
-function validateAndShareIndexOtherwiseErrMsg(stateFrom, stateTo, productId) {
+export function validateAndShareIndexOtherwiseErrMsg(stateFrom, stateTo, productId) {
   let valid = false;
   let _status = ''
   let index = -1;
@@ -31,8 +31,16 @@ function validateAndShareIndexOtherwiseErrMsg(stateFrom, stateTo, productId) {
       _status = `Error. Either ProductId(${productId}) doesnt exist or it was not in the stateFrom:${stateFrom}`
     }
     else {
+      const transitionabilityCheck = ProductFSM.canStateBeTransitionedTo(index,stateFrom, stateTo);
+      console.log(`transitionabilityCheck ${transitionabilityCheck}`);
+
+      if(!transitionabilityCheck){
+        _status = `Error: stateFrom:${stateFrom} to stateTo: ${stateTo} is not a valid transition state`
+      }
+      else {
       console.log("validated succesfully");
-      valid = true;
+        valid=true;
+      }
     }
   }
 
@@ -43,7 +51,6 @@ function transitionState(index, stateFrom, stateTo, productId) {
   let _status = '';
 
   const transitionSucces = ProductFSM.transition(productId, stateFrom, stateTo)
-  console.log(`transitionSucces ${transitionSucces}`)
   if (transitionSucces) {
     _status = `Success: Updating from ${stateFrom} to ${stateTo} for product with Id ${productId}`
   }

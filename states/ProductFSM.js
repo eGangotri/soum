@@ -11,6 +11,10 @@ export class ProductFSM {
         this.fill();
     }
 
+    static destroy() {
+        this.productsFSMArray = [];
+    }
+
     static fill() {
         if(_.isEmpty(this.productsFSMArray)){
             mockProduct.forEach((_productObj,i) => {
@@ -30,10 +34,14 @@ export class ProductFSM {
         const productInFSMDB = this.productsFSMArray[productIndex];
         console.log('ProductFSM:',productIndex,productId,stateFrom, stateTo, this.productsFSMArray.length, JSON.stringify(productInFSMDB.productWithState));
         const result = productInFSMDB.transition(stateTo)
-        if(result){
-            this.productsFSMArray[productIndex].state = stateTo;
-        }
         return result;
+    }
+
+    static canStateBeTransitionedTo(productIndex,stateFrom, stateTo) {
+        const productInFSMDB = this.productsFSMArray[productIndex];
+        console.log('ProductFSM:',productIndex,stateFrom, stateTo, this.productsFSMArray.length, JSON.stringify(productInFSMDB.productWithState));
+        const result =  productInFSMDB.currentState.transition(stateTo);
+        return result !== null;
     }
 
 }
