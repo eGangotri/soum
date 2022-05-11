@@ -3,9 +3,43 @@ yarn install
 yarn run start
 
 ## swagger
-Based on https://dev.to/kabartolo/how-to-document-an-express-api-with-swagger-ui-and-jsdoc-50do
 http://localhost:6969/docs/
 
+##graphql
+http://localhost:6969/graphql
+
+### For Get Category
+{
+  
+  getCategory {
+    category_id
+    parent_id
+    category_name
+  }
+}
+
+### For Get Product
+{
+
+  getProduct {
+    product_id
+    category_id
+    product_price
+    product_image
+    product_name
+    state
+  },
+}
+
+### For Post
+mutation {
+  updateProductState(
+    stateFrom: "Returned",
+  stateTo: "Draft",
+  productId: 1) {
+    status
+  }  
+}
 
 ### Project Original Description
 Please refer to the below state diagram of the product Entity.
